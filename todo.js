@@ -1,75 +1,109 @@
  // Tüm elementleri seçme işlemi 
-const form = document.querySelector("#todo-form");
-const todoInput = document.querySelector("#todo");
-const todoList = document.querySelector(".list-group");
-const firstCardBody = document.querySelectorAll(".card-body")[0];
-const secondCardBody = document.querySelectorAll(".card-body")[1];
-const filter = document.querySelector("#filter");
-const clearButton = document.querySelector("#clear-todos");
+ const form = document.querySelector("#todo-form");
+ const todoInput = document.querySelector("#todo");
+ const todoList = document.querySelector(".list-group");
+ const firstCardBody = document.querySelectorAll(".card-body")[0];
+ const secondCardBody = document.querySelectorAll(".card-body")[1];
+ const filter = document.querySelector("#filter");
+ const clearButton = document.querySelector("#clear-todos");
 
-eventListeners();
+ eventListeners();
 
-function eventListeners() { // Tüm eventListener'lar
+ function eventListeners() { // Tüm eventListener'lar
 
-    form.addEventListener("submit", addTodo);
-}
+     form.addEventListener("submit", addTodo);
+     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+ }
 
-function addTodo(e) { // Todo Ekleme Fonksiyonu
+ function addTodo(e) { // Todo Ekleme Fonksiyonu
 
-    const newTodo = todoInput.value.trim();
+     const newTodo = todoInput.value.trim();
 
-    if (newTodo === "") {
+     if (newTodo === "") {
 
-        showAlert("danger", "Lütfen bir todo giriniz.");
+         showAlert("danger", "Lütfen bir todo giriniz.");
 
-    } else {
+     } else {
 
-        addTodoToUI(newTodo);
+         addTodoToUI(newTodo);
 
-        showAlert("success", "Todo başarıyla eklendi.")
-    }
+         addTodoToStorage(newTodo);
 
-    e.preventDefault();
-}
+         showAlert("success", "Todo başarıyla eklendi.")
+     }
 
-function addTodoToUI(newTodo) { // String degerini listItem olarak UI'ya ekleyecek
+     e.preventDefault();
+ }
 
-    // List Item Oluşturma
+ function addTodoToUI(newTodo) { // String degerini listItem olarak UI'ya ekleyecek
 
-    const listItem = document.createElement("li");
-    listItem.className = "list-group-item d-flex justify-content-between";
+     // List Item Oluşturma
 
-    // Link Oluşturma
+     const listItem = document.createElement("li");
+     listItem.className = "list-group-item d-flex justify-content-between";
 
-    const link = document.createElement("a");
-    link.href = "#";
-    link.className = "delete-item";
-    link.innerHTML = "<i class = 'fa fa-remove'></i>";
+     // Link Oluşturma
 
-    // Text Node Ekleme
+     const link = document.createElement("a");
+     link.href = "#";
+     link.className = "delete-item";
+     link.innerHTML = "<i class = 'fa fa-remove'></i>";
 
-    listItem.appendChild(document.createTextNode(newTodo));
-    listItem.appendChild(link);
+     // Text Node Ekleme
 
-    // Todo List'e List Item Ekleme
-    todoList.appendChild(listItem);
+     listItem.appendChild(document.createTextNode(newTodo));
+     listItem.appendChild(link);
 
-    todoInput.value = "";
-}
+     // Todo List'e List Item Ekleme
+     todoList.appendChild(listItem);
 
-function showAlert(type, message) {
+     todoInput.value = "";
+ }
 
-    const alert = document.createElement("div");
+ function addTodoToStorage(newTodo) {
 
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
+     let todos = getTodosFromStorage();
 
-    firstCardBody.appendChild(alert);
+     todos.push(newTodo);
 
-    // setTimeOut Method
+     localStorage.setItem("todos", JSON.stringify(todos));
+ }
 
-    setTimeout(function () {
-        alert.remove();
-    }, 1000);
-}
+ function getTodosFromStorage() {
 
+     let todos;
+
+     if (localStorage.getItem("todos") === null) {
+         todos = [];
+     } else {
+         todos = JSON.parse(localStorage.getItem("todos"));
+     }
+
+     return todos;
+ }
+
+ function loadAllTodosToUI() {
+
+     let todos = getTodosFromStorage();
+
+     todos.forEach(function (todo) {
+
+         addTodoToUI(todo);
+     })
+ }
+
+ function showAlert(type, message) {
+
+     const alert = document.createElement("div");
+
+     alert.className = `alert alert-${type}`;
+     alert.textContent = message;
+
+     firstCardBody.appendChild(alert);
+
+     // setTimeOut Method
+
+     setTimeout(function () {
+         alert.remove();
+     }, 1000);
+ }
