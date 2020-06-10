@@ -20,7 +20,7 @@
 
  function addTodo(e) { // Todo Ekleme Fonksiyonu
 
-     const newTodo = todoInput.value.trim();
+     const newTodo = todoInput.value.trim(); // trim fonksiyonu degerde bulunan boşlukları temizler
 
      if (newTodo === "") {
 
@@ -28,14 +28,14 @@
 
      } else {
 
-         addTodoToUI(newTodo);
+         addTodoToUI(newTodo); // todo UI üzerinde ekler
 
-         addTodoToStorage(newTodo);
+         addTodoToStorage(newTodo); // todo Storage üzerine ekler
 
          showAlert("success", "Todo başarıyla eklendi.")
      }
 
-     e.preventDefault();
+     e.preventDefault(); // Bu fonksiyon çağrıldığında oluşan eventin işlevini geçersiz kılar.
  }
 
  function addTodoToUI(newTodo) { // String degerini listItem olarak UI'ya ekleyecek
@@ -46,6 +46,14 @@
      listItem.className = "list-group-item d-flex justify-content-between";
 
      // Link Oluşturma
+
+     //   <li class="list-group-item d-flex justify-content-between">
+     //                         Todo 1
+     //                         <a href = "#" class ="delete-item">
+     //                             <i class = "fa fa-remove"></i>
+     //                         </a>
+
+     //   </li>
 
      const link = document.createElement("a");
      link.href = "#";
@@ -58,9 +66,10 @@
      listItem.appendChild(link);
 
      // Todo List'e List Item Ekleme
+
      todoList.appendChild(listItem);
 
-     todoInput.value = "";
+     todoInput.value = ""; // Input degerini ekleme yaptıktan sonra boşa çeker
  }
 
  function addTodoToStorage(newTodo) { // Todo listItem'ları Local Storage'a ekleyecek
@@ -77,8 +86,11 @@
      let todos;
 
      if (localStorage.getItem("todos") === null) {
+
          todos = [];
+
      } else {
+         
          todos = JSON.parse(localStorage.getItem("todos"));
      }
 
