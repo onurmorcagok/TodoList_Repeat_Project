@@ -90,7 +90,7 @@
          todos = [];
 
      } else {
-         
+
          todos = JSON.parse(localStorage.getItem("todos"));
      }
 
@@ -133,7 +133,7 @@
 
      const filterValue = e.target.value.toLowerCase();
      const listItems = document.querySelectorAll(".list-group-item");
-
+     
      listItems.forEach(function (listItem) {
 
          const text = listItem.textContent.toLowerCase();
