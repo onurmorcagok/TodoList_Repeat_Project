@@ -1,4 +1,4 @@
-// Tüm elementleri seçme işlemi 
+ // Tüm elementleri seçme işlemi 
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo");
 const todoList = document.querySelector(".list-group");
@@ -32,22 +32,6 @@ function addTodo(e) { // Todo Ekleme Fonksiyonu
     e.preventDefault();
 }
 
-function showAlert(type, message) {
-
-    const alert = document.createElement("div");
-
-    alert.className = `alert alert-${type}`;
-    alert.textContent = message;
-
-    firstCardBody.appendChild(alert);
-
-    // setTimeOut Method
-
-    setTimeout(function () {
-        alert.remove();
-    }, 1000);
-}
-
 function addTodoToUI(newTodo) { // String degerini listItem olarak UI'ya ekleyecek
 
     // List Item Oluşturma
@@ -72,3 +56,20 @@ function addTodoToUI(newTodo) { // String degerini listItem olarak UI'ya ekleyec
 
     todoInput.value = "";
 }
+
+function showAlert(type, message) {
+
+    const alert = document.createElement("div");
+
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+
+    firstCardBody.appendChild(alert);
+
+    // setTimeOut Method
+
+    setTimeout(function () {
+        alert.remove();
+    }, 1000);
+}
+
