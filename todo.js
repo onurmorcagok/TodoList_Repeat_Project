@@ -60,7 +60,7 @@
      todoInput.value = "";
  }
 
- function addTodoToStorage(newTodo) {
+ function addTodoToStorage(newTodo) { // Todo listItem'ları Local Storage'a ekleyecek
 
      let todos = getTodosFromStorage();
 
@@ -69,7 +69,7 @@
      localStorage.setItem("todos", JSON.stringify(todos));
  }
 
- function getTodosFromStorage() {
+ function getTodosFromStorage() { // Todo listItem'ları Local Storage'dan getirecek ve parse edecek
 
      let todos;
 
@@ -82,7 +82,7 @@
      return todos;
  }
 
- function loadAllTodosToUI() {
+ function loadAllTodosToUI() { // todo'ları getTodosFromStorage fonksiyonundan çekip UI'da görüntüleyecek
 
      let todos = getTodosFromStorage();
 
@@ -92,7 +92,7 @@
      })
  }
 
- function showAlert(type, message) {
+ function showAlert(type, message) { // Uyarı mesajlarını gösterecek olan fonksiyon
 
      const alert = document.createElement("div");
 
