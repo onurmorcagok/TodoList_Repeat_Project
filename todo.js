@@ -12,8 +12,10 @@
  function eventListeners() { // Tüm eventListener'lar
 
      form.addEventListener("submit", addTodo);
-     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+     document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
+     secondCardBody.addEventListener("click", deleteTodo);
  }
+
 
  function addTodo(e) { // Todo Ekleme Fonksiyonu
 
@@ -90,6 +92,28 @@
 
          addTodoToUI(todo);
      })
+ }
+
+ function deleteTodo(e) { // Seçilen todo UI'dan siler
+
+     if (e.target.className === "fa fa-remove") {
+         e.target.parentElement.parentElement.remove();
+         deleteTodoFromToStorage(e.target.parentElement.parentElement.textContent);
+         showAlert("success", "Todo başarıyla silindi.");
+     }
+ }
+
+ function deleteTodoFromToStorage(deleteTodo) { // Seçilen todo Storage'dan silinir
+
+     let todos = getTodosFromStorage();
+
+     todos.forEach(function (todo, index) {
+         if (todo === deleteTodo) {
+             todos.splice(index, 1); // Array'den degeri siler
+         }
+     });
+
+     localStorage.setItem("todos",JSON.stringify(todos));
  }
 
  function showAlert(type, message) { // Uyarı mesajlarını gösterecek olan fonksiyon
