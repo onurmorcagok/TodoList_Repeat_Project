@@ -15,7 +15,7 @@
      document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
      secondCardBody.addEventListener("click", deleteTodo);
      filter.addEventListener("keyup", filterTodos);
-     clearButton.addEventListener("click",clearAllTodos);
+     clearButton.addEventListener("click", clearAllTodos);
  }
 
  function addTodo(e) { // Todo Ekleme Fonksiyonu
@@ -119,23 +119,35 @@
 
  function filterTodos(e) {
 
-    const filterValue = e.target.value.toLowerCase();
-    const listItems = document.querySelectorAll(".list-group-item");
+     const filterValue = e.target.value.toLowerCase();
+     const listItems = document.querySelectorAll(".list-group-item");
 
-    listItems.forEach(function (listItem) {
+     listItems.forEach(function (listItem) {
 
-        const text = listItem.textContent.toLowerCase();
+         const text = listItem.textContent.toLowerCase();
 
-        if (text.indexOf(filterValue) === -1) {
+         if (text.indexOf(filterValue) === -1) {
 
-            listItem.setAttribute("style", "display : none!important");
+             listItem.setAttribute("style", "display : none!important");
 
-        } else {
+         } else {
 
-            listItem.setAttribute("style", "display : block");
-        }
-    });
-}
+             listItem.setAttribute("style", "display : block");
+         }
+     });
+ }
+
+ function clearAllTodos(e) {
+
+     if (confirm("Tüm todoları temizlemek istediğinize emin misiniz ?")) {
+
+         while (todoList.firstElementChild != null) {
+             todoList.removeChild(todoList.firstElementChild);
+         }
+
+         localStorage.removeItem("todos");
+     }
+ }
 
  function showAlert(type, message) { // Uyarı mesajlarını gösterecek olan fonksiyon
 
