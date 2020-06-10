@@ -7,7 +7,7 @@
  const filter = document.querySelector("#filter");
  const clearButton = document.querySelector("#clear-todos");
 
- eventListeners();
+ eventListeners(); // Bütün eventListener'ların içerisinde bulunduğu fonksiyonu çağırdık
 
  function eventListeners() { // Tüm eventListener'lar
 
